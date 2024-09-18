@@ -1,11 +1,10 @@
 const data = require("../db/dbConnect")
 
-
-
 const getInfo = async (req, res, next) => {
-    console.log("this is tough");
-    
-    const userList = await data.db("testing").admin().collection("users").find();
+    console.log("controller test")
+    const client = await data.dbConnection();
+    const db = client.db("testing");
+    const userList = await db.collection("users").find().toArray();
     console.log(userList)
     if (userList) {
         userList.toArray().then((list) => {
@@ -17,5 +16,5 @@ const getInfo = async (req, res, next) => {
     }
 }
 
-module.exports = {getInfo}
+module.exports = { getInfo }
 
